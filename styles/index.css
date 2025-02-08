@@ -1,24 +1,23 @@
 /* Base styles (Mobile-first) */
 /* No media query needed for mobile-first approach */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap');
-
 @font-face {
     font-family: 'Montserrat';
     src: url("../assets/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'JosefinSlab';
-    src: url("../assets/fonts/JosefinSlab-VariableFont_wght.ttf") format("truetype");
+    font-family: 'Kalufonia';
+    src: url("../assets/fonts/Kalufonia-Regular.woff2") format("woff2");
 }
 
 :root {
-    --gradient-linear: linear-gradient(90deg, #cb8c02, #e7ca62);
-    --gradient-circle: linear-gradient(90deg, rgba(214, 167, 63, 1) 0%, rgba(231, 202, 98, 1) 25%, rgba(214, 167, 63, 1) 100%);
-    --gold: #D6A73F;
+    --gradient-linear: linear-gradient(90deg, #00A198, #00dcce);
+    --gradient-circle: linear-gradient(90deg, #00A198 0%, #00dcce 25%, #00A198 100%);
+    --gold: #00A198;
     --spacing-small: 24px;
     --spacing-big: 56px;
-    --serif-font: "DM Serif Text", "PT Serif", serif;
+    --serif-font: "Kalufonia", "PT Serif", serif;
+    --transition-duration: 0.6s;
 }
 
 body {
@@ -68,11 +67,6 @@ h3 {
     margin-bottom: 1rem;
 }
 
-.todo-info {
-    background-color: red;
-    color: blue;
-}
-
 .container {
     width: 90%;
     max-width: 1200px;
@@ -103,12 +97,19 @@ h3 {
 }
 
 .button {
+    color: #000;
     background: var(--gradient-linear);
     border: none;
     padding: 12px;
     border-radius: 10px;
     font-weight: 600;
     font-size: 1rem;
+    text-decoration: none;
+}
+
+.button:focus, .button:visited .button:hover {
+    color: #000;
+    text-decoration: none;
 }
 
 .introduction {
@@ -127,15 +128,39 @@ h3 {
 .about {
     padding-top: var(--spacing-big);
     padding-bottom: var(--spacing-small);
+    overflow: hidden;
+}
+
+.about__container {
+    display: grid;
+    grid-template-areas:
+            "a a"
+            "b b"
+            "c c";
+}
+
+.about__grid-1 {
+    grid-area: a;
+}
+
+.about__grid-2 {
+    grid-area: b;
+}
+
+.about__grid-3 {
+    grid-area: c;
 }
 
 .about__image {
     width: 80%;
     margin: var(--spacing-small) auto;
-    max-width: 460px;
+    max-width: 300px;
+    border-radius: 16px;
+    grid-area: pic;
 }
 
 .about__button {
+    grid-area: btn;
     margin-top: var(--spacing-small);
 }
 
@@ -158,11 +183,14 @@ h3 {
     border-radius: 16px;
     padding: var(--spacing-big) var(--spacing-small);
     background-color: #0F0F0F;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
 }
 
 .for-who__title {
     font-size: 1.25rem;
     margin-bottom: 20px;
+    grid-column: 1 / -1;
 }
 
 .for-who__text {
@@ -231,6 +259,21 @@ h3 {
     padding-top: var(--spacing-small);
 }
 
+.footer__social {
+    margin-bottom: var(--spacing-small);
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.footer__social-item {
+    color: #fff;
+}
+
+.footer__social-item svg {
+    stroke: #fff;
+}
+
 .footer__img {
     flex-basis: 40%;
     max-width: 100px;
@@ -238,6 +281,99 @@ h3 {
 
 .footer__text {
     flex-basis: 100%;
+}
+
+
+/*!* Carousel container *!*/
+.swiper-container {
+    width: 90%;
+    margin: auto;
+    padding: 10% 0 20%;
+}
+
+/*!* Slide styles *!*/
+.swiper-slide {
+    width: 50%;
+    max-width: 180px; /* Adjust width as needed */
+    max-height: 120px; /* Adjust height as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    transition: transform var(--transition-duration), filter var(--transition-duration), opacity var(--transition-duration);
+    border-radius: 24px;
+}
+
+/* Ensure images fill their slide */
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Active slide: fully visible and front & center */
+.swiper-slide.swiper-slide-active {
+    transform: scale(1.8) translateZ(0);
+    filter: none;
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Slides adjacent to the active slide: smaller, slightly blurred and faded */
+.swiper-slide:not(.swiper-slide-active) {
+    transform: scale(1);
+    filter: blur(2px);
+    opacity: 0.8;
+    z-index: 1;
+}
+
+/* Other slides (if visible) can be further hidden */
+.swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
+    transform: scale(0.6);
+    filter: blur(3px);
+    opacity: 0.6;
+    z-index: 0;
+}
+
+.swiper-nav {
+    margin-top: 90px;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 70px;
+}
+
+/* Optional: Navigation styles (customize as needed) */
+.swiper-button-prev,
+.swiper-button-next {
+    color: #fff;
+    position: relative;
+    height: 24px;
+    width: auto;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    font-size: 2rem;
+}
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.whatsapp-float a img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s;
+}
+
+.whatsapp-float a img:hover {
+    opacity: 0.8;
 }
 
 /* Small devices (e.g., tablets, 576px and up) */
@@ -248,11 +384,55 @@ h3 {
 /* Medium devices (e.g., tablets and small desktops, 768px and up) */
 @media (min-width: 768px) {
     /* Styles for medium devices */
+    .button {
+        max-width: 300px;
+        margin: auto;
+        width: 100%;
+    }
+
+    .swiper-container {
+        padding: 40px 0 110px;
+    }
+
+    .about__container {
+        display: grid;
+        grid-template-areas:
+            "b a"
+            "b c";
+    }
+
+    .about__grid-1 {
+        margin-top: auto;
+    }
+
+    .about__image {
+        max-width: none;
+    }
 }
 
 /* Large devices (e.g., desktops, 992px and up) */
 @media (min-width: 992px) {
     /* Styles for large devices */
+    :root {
+        --spacing-small: 48px;
+        --spacing-big: 64px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    h3 {
+        font-size: 2rem;
+    }
+
+    .for-who__container {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 /* Extra large devices (e.g., large desktops, 1200px and up) */
