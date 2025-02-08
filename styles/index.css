@@ -162,6 +162,7 @@ h3 {
 .about__button {
     grid-area: btn;
     margin-top: var(--spacing-small);
+    display: block;
 }
 
 .for-who {
