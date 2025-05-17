@@ -199,7 +199,7 @@ h3 {
 
 .special-condition {
     background-image: url("../assets/special-condition.jpg");
-    background-position: top;
+    background-position: center;
     background-size: cover;
     padding-top: var(--spacing-big);
     padding-bottom: var(--spacing-small);
